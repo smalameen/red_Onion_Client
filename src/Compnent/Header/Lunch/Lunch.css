@@ -1,0 +1,15 @@
+.card-design{
+   background-color: #F55951;
+   display: flex;
+   justify-content: space-between;
+   max-width: 100%;
+   padding: 20px;
+   margin: 5px;
+   border-radius: 20px;
+
+
+}
+.card-style{
+    margin: 10px;
+}
+
