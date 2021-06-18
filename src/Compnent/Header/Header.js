@@ -1,59 +1,51 @@
-import React from "react";
-import "../Header/Header.css";
-import { Button, ButtonGroup, Navbar } from "react-bootstrap";
-import { Nav } from "react-bootstrap";
-import logo  from "../Header/logo2.png";
-import header from "../Header/bannerbackground.png";
-import { Link } from "react-router-dom";
-
-// const background = {
-//     width: "100%",
-//     height: "400px",
-//     backgroundImage: "url(" + { header } + ")"
-// }
+import React from 'react'
+import '../Header/Header.css'
+import { Navbar } from 'react-bootstrap'
+import { Nav } from 'react-bootstrap'
+import logo from '../Header/logo2.png'
+import Middle from '../Middle/Middle'
+import Food from '../Food/Food'
 
 const Header = () => {
   return (
-    <div>
-        <div> 
-      <Navbar  expand="lg">
-        <Navbar.Brand href="#home">
-          <img className = "logo" src={logo} alt=""/>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="nav-left">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Link</Nav.Link>
-            <Button className="button" variant="danger">Sign In</Button>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
+    <div style={{ overflowX: 'hidden' }}>
+      <div className="container">
+        <Navbar expand="lg">
+          <Navbar.Brand href="#home">
+            <img style={{ height: '2rem', width: '7rem' }} src={logo} alt="" />
+          </Navbar.Brand>
+          <Navbar.Toggle
+            style={{
+              border: '1px solid red',
+              backgroundColor: 'red',
+              opacity: '0.3',
+            }}
+            aria-controls="basic-navbar-nav"
+          />
+          <Navbar.Collapse className="mr-1 justify-content-end">
+            <Nav>
+              <Nav.Link href="/">
+                <i
+                  class="fa fa-shopping-cart"
+                  style={{ color: 'red', fontSize: '36px' }}
+                ></i>
+              </Nav.Link>
+              <Nav.Link style={{ color: 'black' }} href="/auth">
+                <b style={{ color: 'black' }}>Log In</b>
+              </Nav.Link>
+              <Nav.Link style={{ color: 'black' }} href="/auth">
+                <b style={{ color: 'black' }}>Sign up</b>
+              </Nav.Link>
+            </Nav>
+          </Navbar.Collapse>
+        </Navbar>
       </div>
-      <h1 stye={{testAlign: 'center'}}>The best Food is waiting for your belly!!</h1>
-   <div className="container-fluid header" style= {{backgroundImage: `url(${header})`}}>
-   
-   <input className="center" variant="danger" type="text"/>
-   <Button className="button" variant="danger">Sign In</Button>
 
-   
-   </div>
+      <Middle />
 
-<div className="button-group">
-<ButtonGroup  size="small" aria-label="small outlined button group">
-  <Link to="/breakfast"> <Button className="buttons" >Break fast</Button> </Link> 
-  <Link to="/lunch"> <Button className="buttons">Lunch</Button> </Link> 
- <Link to="/dinner"> <Button className="buttons">Dinner</Button> </Link>
-    </ButtonGroup>
-</div>
+      <Food/>
+    </div>
+  )
+}
 
-
-   
-      
-      
-</div>
-    
-  );
-};
-
-export default Header;
+export default Header

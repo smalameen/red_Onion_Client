@@ -1,45 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Header from './Compnent/Header/Header';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import React, { createContext, useEffect, useState } from 'react'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import axios from 'axios'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Home from './Compnent/Home/Home'
+import PaymentAndDetails from './Compnent/PaymentAndDetails/PaymentAndDetails'
+import LogIn from './Compnent/LogIn/LogIn'
+import Payments from './Compnent/Payments/Payments'
+import PrivateRoute from './Compnent/LogIn/PrivateRoute'
 
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom";
-import Dinner from './Compnent/Header/Dinner/Dinner';
-import Breakfast from './Compnent/Header/Breakfast/Breakfast';
-import Lunch from './Compnent/Header/Lunch/Lunch';
-import Home from './Compnent/Header/Home/Home';
+export const UserContext = createContext()
+export const PhoneNumber = createContext()
 
 function App() {
+ 
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await axios('http://localhost:5001/getPhone')
+      result.data.map((number) => setPhone(number))
+    }
+    fetchData()
+  }, [])
+  const [phone, setPhone] = useState([])
+  console.log(phone)
+  const [loggedInUser, setLoggedInUser] = useState({})
   return (
-    
-      <Router>
-         <Header> </Header>
-         {/* <Home></Home> */}
-      <Switch>
-          <Route path="/breakfast">
-            <Breakfast/>
-          </Route>
-          <Route path="/lunch">
-            <Lunch/>
-          </Route>
-          <Route path="/dinner">
-            <Dinner />
-          </Route>
-          <Route path="/">
-            <Lunch/>
-          </Route>
-        </Switch>
-      
-    </Router>
-     
-   
-  );
+    <div style={{ overflowX: 'hidden' }}>
+      <UserContext.Provider value={[loggedInUser, setLoggedInUser]}>
+        <PhoneNumber.Provider value={[phone, setPhone]}>
+          <Router>
+            <Switch>
+              <Route path="/home">
+                <Home />
+              </Route>
+              <Route path="/foodDetails/:id/:price">
+                <PaymentAndDetails />
+              </Route>
+              <Route path="/auth">
+                <LogIn />
+              </Route>
+              <PrivateRoute path="/payment">
+                <Payments />
+              </PrivateRoute>
+              <Route exact path="*">
+                <Home />
+              </Route>
+            </Switch>
+          </Router>
+        </PhoneNumber.Provider>
+      </UserContext.Provider>
+    </div>
+  )
 }
 
-export default App;
+export default App
